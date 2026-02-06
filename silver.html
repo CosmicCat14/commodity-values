@@ -145,6 +145,20 @@
                     document.getElementById('silver-dollar').innerText = sv_doll;
                 }, 1000);
             </script>
+            <p>A 2oz silver coin is worth $<span id="silver-dollar"></span>.</p>
+            <script>
+                setInterval(() => {
+                    let sv_doll = Math.round(2 * data.price *100) / 100;
+                    document.getElementById('silver-dollar').innerText = sv_doll;
+                }, 1000);
+            </script>
+            <p>A 5oz silver coin is worth $<span id="silver-dollar"></span>.</p>
+            <script>
+                setInterval(() => {
+                    let sv_doll = Math.round(5 * data.price *100) / 100;
+                    document.getElementById('silver-dollar').innerText = sv_doll;
+                }, 1000);
+            </script>
             <h1>Gold</h1>
             <p>Current gold spot price: $<span id="goldspot"></span>.</p>
             <script>
