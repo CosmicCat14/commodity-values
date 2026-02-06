@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Silver and gold coin values</title>
+        <style>
+            .highlight{
+                background-color: blue;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="header">
+            <h2>Live Silver and Gold coin values</h2>
+        </div>
+        <script>
+            let timer = 0;
+            let timerInterval = 0;
+            function connect() {
+                
+            //connect to API
+            fetch('https://api.gold-api.com/price/XAG')
+            .then(response => {
+                if (!response.ok) {
+                    console.log(`HTTP error! status: ${response.status}`);
+                }
+                // Check if response has content
+                return response.text(); // Get as text first
+                })
+            .then(text => {
+            if (!text) {
+            console.error('Empty response received');
+            return;
+            }
+            data = JSON.parse(text); // Parse manually
+            manage(data);
+            })
+            .catch(error => console.error('Fetch error:', error));
+            function inform() {
+                document.getElementById('inform-04').open = true;
+            }
+            function dismiss() {
+                document.getElementById('inform-04').open = false;
+            }
+            function manage(d) {
+                data = d;
+            }
+            fetch('https://api.gold-api.com/price/XAU')
+            .then(response => {
+                if (!response.ok) {
+                    console.log(`HTTP error! status: ${response.status}`);
+                }
+                // Check if response has content
+                return response.text(); // Get as text first
+                })
+            .then(text => {
+            if (!text) {
+            console.error('Empty response received');
+            return;
+            }
+            gold = JSON.parse(text); // Parse manually
+            manageGold(gold);
+            })
+            .catch(error => console.error('Fetch error:', error));
+        }
+            function manageGold(d) {
+                gold = d;
+                //stop timer if any
+                if (timerInterval != 0){
+                    clearInterval(timerInterval);
+                    timerInterval = 0;
+                }
+                //start timer
+                timer = 0;
+                timerInterval =  setInterval(()=>timer++, 1000)
+            }
+            connect();
+        </script>
+        <div id="bodycontent">
+            Prices Last updated <span id="time"></span> seconds ago.
+            <script>
+            setInterval(() => {
+
+                    let sv_updated = timer;
+                    if (timer > 29){
+                        connect();
+                    }
+                    document.getElementById('time').innerText = sv_updated;
+                }, 1000);
+            </script>
+            <h2>Silver</h2>
+            <p>Current silver spot price: $<span id="svspot"></span>.</p>
+            <script>
+                let storedspot;
+            setInterval(() => {
+                    document.getElementById('svspot').classList.remove('highlight')
+                    let sv_spot = Math.floor(data.price * 100) /100;
+                    if (storedspot != sv_spot){
+                        document.getElementById('svspot').classList.add('highlight')
+                    }
+                    document.getElementById('svspot').innerText = sv_spot;
+                    storedspot = sv_spot;
+                }, 1000);
+            </script>
+            <p>A silver half dime, which contains 0.04 ounces of silver, is worth $<span id="silver-hdime"></span>.</p>
+            <script>
+                setInterval(() => {
+                    let sv_dime = Math.round(0.04 * data.price *100) / 100;
+                document.getElementById('silver-hdime').innerText = sv_dime;
+                }, 1000);
+            </script>
+            <p>A silver dime, which contains 0.08 ounces of silver, is worth $<span id="silver-dime"></span>.</p>
+            <script>
+                setInterval(() => {
+                    let sv_dime = Math.round(0.08 * data.price *100) / 100;
+                document.getElementById('silver-dime').innerText = sv_dime;
+                }, 1000);
+            </script>
+            <p>A silver quarter, which contains 0.18 ounces of silver, is worth $<span id="silver-qtr"></span>.</p>
+            <script>
+                setInterval(() => {
+                    let sv_qtr = Math.round(0.18 * data.price *100) / 100;
+                    document.getElementById('silver-qtr').innerText = sv_qtr;
+                }, 1000);
+            </script>
+            <p>A silver 90% half-dollar, which contains 0.36 ounces of silver, is worth $<span id="silver-half"></span>.</p>
+            <script>
+                setInterval(() => {
+                    let sv_half = Math.round(0.36 * data.price *100) / 100;
+                    document.getElementById('silver-half').innerText = sv_half;
+                }, 1000);
+            </script>
+            <p>A silver clad half-dollar (40%), which contains 0.14792 ounces of silver, is worth $<span id="sv-half"></span>.</p>
+            <script>
+                setInterval(() => {
+                    let sv_half = Math.round(0.14792 * data.price *100) / 100;
+                    document.getElementById('sv-half').innerText = sv_half;
+                }, 1000);
+            </script>
+            <p>A silver dollar, which contains 0.77 ounces of silver, is worth $<span id="silver-dollar"></span>.</p>
+            <script>
+                setInterval(() => {
+                    let sv_doll = Math.round(0.77 * data.price *100) / 100;
+                    document.getElementById('silver-dollar').innerText = sv_doll;
+                }, 1000);
+            </script>
+            <h1>Gold</h1>
+            <p>Current gold spot price: $<span id="goldspot"></span>.</p>
+            <script>
+            setInterval(() => {
+                    let gd_spot = Math.floor(gold.price * 100) / 100;
+                document.getElementById('goldspot').innerText = gd_spot;
+                }, 1000);
+            </script>
+            <p>A gold $2 1/2 coin, which contains 0.14 ounces of gold, is worth $<span id="2.5"></span>.</p>
+            <script>
+                setInterval(() => {
+                    let sv_doll = Math.round(0.14 * gold.price *100) / 100;
+                    document.getElementById('2.5').innerText = sv_doll;
+                }, 1000);
+            </script>
+            <p>A gold $5 coin, which contains 0.28 ounces of gold, is worth $<span id="5"></span>.</p>
+            <script>
+                setInterval(() => {
+                    let sv_doll = Math.round(0.28 * gold.price *100) / 100;
+                    document.getElementById('5').innerText = sv_doll;
+                }, 1000);
+            </script>
+            <p>A gold $10 coin, which contains about 0.5 ounces of gold, is worth $<span id="10"></span>.</p>
+            <script>
+                setInterval(() => {
+                    let sv_doll = Math.round(0.5 * gold.price *100) / 100;
+                    document.getElementById('10').innerText = sv_doll;
+                }, 1000);
+            </script>
+            <p>A gold $20 coin, which contains 0.96 ounces of gold, is worth $<span id="20"></span>.</p>
+            <script>
+                setInterval(() => {
+                    let sv_doll = Math.round(0.9675 * gold.price *100) / 100;
+                    document.getElementById('20').innerText = sv_doll;
+                }, 1000);
+            </script>
+        </div>
+    </body>
+</html>
