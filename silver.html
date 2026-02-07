@@ -297,6 +297,7 @@
             <button onclick="setAlert(-5, 'gold');">-5%</button>
            <script>
             let openSection = ""; 
+            setTimeout(() => {
                 setInterval(() => {
                     if (document.getElementById('darkmode').checked == true){
                         document.body.classList.add('darkmode');
@@ -324,6 +325,7 @@
                         }
                     }
                 }, 100);
+                }, 1000);
                 function setAlert(percentabove=0, commodity="") {
                     switch (commodity) {
                         case "silver":
