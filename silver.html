@@ -315,6 +315,7 @@
                         localStorage.setItem('svAlertMax', svAlertMax);
                     }
                     if (document.getElementById('sv-bullion').open && document.getElementById("gd-bullion").open){
+                        document.getElementById("gd-bullion").open = false;
                         switch (openSection) {
                             case "sv-bullion"://if the silver section is open and the gold section is being opened
                                 document.getElementById("sv-bullion").open = false;//close the silver section
