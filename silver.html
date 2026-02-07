@@ -280,6 +280,13 @@
                 <input type="checkbox" id="darkmode">
                 <span class="slider"></span>
             </label>
+            <h3>Alerts:</h3>
+            <h4>Silver:</h4>
+            <button onclick="setAlert(+5, 'silver');">+5%</button>
+            <button onclick="setAlert(-5, 'silver');">-5%</button>
+            <h4>Gold:</h4>
+            <button onclick="setAlert(+5, 'gold');">+5%</button>
+            <button onclick="setAlert(-5, 'gold');">-5%</button>
            <script>
                 setInterval(() => {
                     if (document.getElementById('darkmode').checked == true){
@@ -288,6 +295,9 @@
                         document.body.classList.remove('darkmode');
                     }
                 }, 100);
+                function setAlert(percentabove=0, commodity="") {
+                    //add later
+                }
            </script>   
         </div> 
         </div>
