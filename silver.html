@@ -197,7 +197,7 @@
                     document.getElementById('silver-dollar').innerText = sv_doll;
                 }, 1000);
             </script>
-            <details>
+            <details id="sv-bullion">
                 <summary>Silver Bullion</summary>
             <p>A 2oz silver coin is worth $<span id="silver-two"></span>.</p>
             <script>
@@ -222,7 +222,7 @@
                 document.getElementById('goldspot').innerText = gd_spot;
                 }, 1000);
             </script>
-            <details><summary>Maple leaf gold</summary>
+            <details id="gd-bullion"><summary>Maple leaf gold</summary>
             <p>A gold 1/10oz maple leaf is worth $<span id="0.1"></span>.</p>
             <script>
                 setInterval(() => {
@@ -296,6 +296,7 @@
             <button onclick="setAlert(+5, 'gold');">+5%</button>
             <button onclick="setAlert(-5, 'gold');">-5%</button>
            <script>
+            let openSection = ""; 
                 setInterval(() => {
                     if (document.getElementById('darkmode').checked == true){
                         document.body.classList.add('darkmode');
@@ -311,6 +312,18 @@
                         alert('Silver spot price dropped below $'+svAlertMin + "/oz!")
                         svAlertMin = -1;
                         localStorage.setItem('svAlertMax', svAlertMax);
+                    }
+                    if (document.getElementById('sv-bullion').open && document.getElementById("gd-bullion").open){
+                        switch (openSection) {
+                            case "sv-bullion"://if the silver section is open and the gold section is being opened
+                                document.getElementById("sv-bullion").open = false;//close the silver section
+                                break;
+                            case "gd-bullion"://if the gold section is open and the silver section is being opened
+                                document.getElementById("gd-bullion").open = false;//close the gold section
+                                break;
+                            default:
+                                break;
+                        }
                     }
                 }, 100);
                 function setAlert(percentabove=0, commodity="") {
