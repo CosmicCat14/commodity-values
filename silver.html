@@ -67,6 +67,8 @@
         <script>
             let timer = 0;
             let timerInterval = 0;
+            let svAlertMin = localStorage.getItem('svAlertMin') != null? localStorage.getItem('svAlertMin'):-1;
+            let svAlertMax = localStorage.getItem('svAlertMax') != null? localStorage.getItem('svAlertMax'):1000000;
             function connect() {
                 
             //connect to API
@@ -276,7 +278,7 @@
             <button onclick="document.getElementById('control').classList.toggle('hidden')">...</button>
         <div class="hidden" id="control">
             Dark mode:
-            <label class="toggle-switch">
+            <label class="toggle-switch" role="switch">
                 <input type="checkbox" id="darkmode">
                 <span class="slider"></span>
             </label>
@@ -294,9 +296,39 @@
                     }else{
                         document.body.classList.remove('darkmode');
                     }
+                    if (data.price >= svAlertMax){
+                        alert('Silver spot price exceeded $'+svAlertMax + "/oz!")
+                        svAlertMax = 1000000;
+                        localStorage.setItem('svAlertMax', svAlertMax);
+                    }
+                    if (data.price <= svAlertMin){
+                        alert('Silver spot price dropped below $'+svAlertMin + "/oz!")
+                        svAlertMin = -1;
+                        localStorage.setItem('svAlertMax', svAlertMax);
+                    }
                 }, 100);
                 function setAlert(percentabove=0, commodity="") {
-                    //add later
+                    switch (commodity) {
+                        case "silver":
+                            console.log('setting alert for silver:')
+                            if (percentabove < 0){
+                                console.log('Triggered when silver drops below', data.price * (1 + 0.01*percentabove))
+                                svAlertMin = data.price * (1 + 0.01*percentabove);
+                                localStorage.setItem('svAlertMin', svAlertMin)
+                            }else{
+                                console.log('Triggered when silver rises above', data.price * (1 + 0.01*percentabove))
+                                svAlertMax = data.price * (1 + 0.01*percentabove);
+                                localStorage.setItem('svAlertMax', svAlertMax);
+                            }
+                            break;
+                    
+                        case "gold":
+                            //pass
+                            break;
+                        default:
+                            console.log('Invalid parameter entered in `setAlert`: commodity');
+                            break;
+                    }
                 }
            </script>   
         </div> 
