@@ -10,6 +10,7 @@
             }
             .darkmode{
                 background-color: black;
+                color: white;
             }
             .toggle-switch {
                 position: relative;
@@ -271,9 +272,18 @@
             </script>
             Dark mode:
             <label class="toggle-switch">
-                <input type="checkbox" />
+                <input type="checkbox" id="darkmode">
                 <span class="slider"></span>
-            </label>   
+            </label>
+           <script>
+                setInterval(() => {
+                    if (document.getElementById('darkmode').checked = true){
+                        document.body.classList.add('darkmode');
+                    }else{
+                        document.body.classList.remove('darkmode');
+                    }
+                }, 100);
+           </script>    
         </div>
     </body>
 </html>
