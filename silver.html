@@ -314,6 +314,9 @@
                         svAlertMin = -1;
                         localStorage.setItem('svAlertMax', svAlertMax);
                     }
+                }, 100);
+                }, 1000);
+                setInterval(() => {
                     if (document.getElementById('sv-bullion').open && document.getElementById("gd-bullion").open){
                         document.getElementById("gd-bullion").open = false;
                         switch (openSection) {
@@ -326,7 +329,6 @@
                         }
                     }
                 }, 100);
-                }, 1000);
                 function setAlert(percentabove=0, commodity="") {
                     switch (commodity) {
                         case "silver":
