@@ -155,6 +155,7 @@
                     storedspot = sv_spot;
                 }, 1000);
             </script>
+            <details><summary>U.S Circulating and Commemorative Silver coins</summary>
             <p>A silver half dime, which contains 0.04 ounces of silver, is worth $<span id="silver-hdime"></span>.</p>
             <script>
                 setInterval(() => {
@@ -197,6 +198,7 @@
                     document.getElementById('silver-dollar').innerText = sv_doll;
                 }, 1000);
             </script>
+            </details>
             <details id="sv-bullion">
                 <summary>Silver Bullion</summary>
             <p>A 2oz silver coin is worth $<span id="silver-two"></span>.</p>
@@ -292,7 +294,7 @@
             <h4>Silver:</h4>
             <button onclick="setAlert(+5, 'silver');">+5%</button>
             <button onclick="setAlert(-5, 'silver');">-5%</button>
-            <button onclick="setAlert(document.getElementById('input').value, 'silver');">Custom: <input type="number" id="input"></button>
+            <button onclick="setAlert(document.getElementById('input').value, 'silver');">Custom: <input type="number" id="input">%</button>
             <h4>Gold:</h4>
             <button onclick="setAlert(+5, 'gold');">+5%</button>
             <button onclick="setAlert(-5, 'gold');">-5%</button>
