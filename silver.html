@@ -155,7 +155,7 @@
                     storedspot = sv_spot;
                 }, 1000);
             </script>
-            <details><summary>U.S Circulating and Commemorative Silver coins</summary>
+            <details id="sv-usa" open><summary>U.S Circulating and Commemorative Silver coins</summary>
             <p>A silver half dime, which contains 0.04 ounces of silver, is worth $<span id="silver-hdime"></span>.</p>
             <script>
                 setInterval(() => {
@@ -320,14 +320,20 @@
                 }, 100);
                 }, 1000);
                 setInterval(() => {
-                    if (document.getElementById('sv-bullion').open && document.getElementById("gd-bullion").open){
+                    let nbr0pen = document.getElementById('sv-bullion').open?1:0;
+                    nbr0pen += document.getElementById('gd-bullion').open?1:0;
+                    nbr0pen += document.getElementById('sv-usa').open?1:0;
+                    if (nbr0pen>1){
                         switch (openSection) {
-                            case "sv-bullion"://if the silver section is open and the gold section is being opened
+                            case "sv-bullion"://if the silver section is open and the gold section is being opened OR the U.S. silver section is being opened,
                                 document.getElementById("sv-bullion").open = false;//close the silver section
                                 break;
-                            case "gd-bullion"://if the gold section is open and the silver section is being opened
+                            case "gd-bullion"://if the gold section is open and the silver section is being opened OR the U.S. silver section is being opened,
                                 document.getElementById("gd-bullion").open = false;//close the gold section
                                 break;
+                            case "sv-usa"://if the US silver section is open and the silver section is being opened OR the gold section is being opened,
+                            document.getElementById("sv-usa").open = false;//close the US silver section
+                            break;
                         }
                     }
                     if (document.getElementById('sv-bullion').open){
@@ -335,6 +341,9 @@
                     }
                     if (document.getElementById('gd-bullion').open){
                         openSection = "gd-bullion";
+                    }
+                    if (document.getElementById('sv-usa').open){
+                        openSection = "sv-usa";
                     }
                 }, 100);
                 function setAlert(percentabove=0, commodity="") {
