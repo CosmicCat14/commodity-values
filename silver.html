@@ -321,12 +321,12 @@
                         document.body.classList.remove('darkmode');
                     }
                     if (data.price >= svAlertMax){
-                        alert('Silver spot price exceeded $'+svAlertMax + "/oz!")
+                        Triggeralert('Silver spot price exceeded $'+svAlertMax + "/oz!")
                         svAlertMax = 1000000;
                         localStorage.removeItem('svAlertMax');
                     }
                     if (data.price <= svAlertMin){
-                        alert('Silver spot price dropped below $'+svAlertMin + "/oz!")
+                        Triggeralert('Silver spot price dropped below $'+svAlertMin + "/oz!")
                         svAlertMin = -1;
                         localStorage.setItem('svAlertMax', svAlertMax);
                     }
@@ -382,6 +382,22 @@
                         default:
                             console.log('Invalid parameter entered in `setAlert`: commodity');
                             break;
+                    }
+                }
+                function Triggeralert(message, messagebody) {
+                    if (window.innerWidth < 425){
+                        Notification.requestPermission().then((result) => {
+                            if (result === "granted") {
+                                navigator.serviceWorker.ready.then((registration) => {
+                                    registration.showNotification(message, {
+                                        body: messagebody,
+                                        icon: "",
+                                    });
+                                });
+                            }
+                        });
+                    }else{
+                        alert(message);
                     }
                 }
            </script>   
