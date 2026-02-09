@@ -69,12 +69,13 @@
     <body>
         <div id="header">
             <h2>Live Silver and Gold coin values</h2>
+            
         </div>
         <script>
             let timer = 0;
             let timerInterval = 0;
             let svAlertMin = localStorage.getItem('svAlertMin') != null? localStorage.getItem('svAlertMin'):-1;
-            let svAlertMax = localStorage.getItem('svAlertMax') != null? localStorage.getItem('svAlertMax'):1000000;
+            let svAlertMax = localStorage.getItem('svAlertMax') != null? localStorage.getItem('svAlertMax'):NaN;
             function connect() {
                 
             //connect to API
@@ -290,6 +291,7 @@
                 }, 1000);
             </script>
             <button onclick="document.getElementById('control').classList.toggle('hidden')">...</button>
+
         <div class="hidden" id="control">
             Dark mode:
             <label class="toggle-switch" role="switch">
@@ -299,9 +301,13 @@
             <h3>Alerts:</h3>
             <h4>Silver:</h4>
             <button onclick="setAlert(+5, 'silver');">+5%</button>
-            <button onclick="setAlert(-5, 'silver');">-5%</button>
+            <button onclick="setAlert(-5, 'silver');">-5%</button><br>
             Custom<input type="number" id="input">%
-            <button onclick="setAlert(document.getElementById('input').value, 'silver');">Set</button>
+            <button onclick="setAlert(document.getElementById('input').value, 'silver');">Set</button><br>
+            <h5>Existing:</h5>
+            <div class="alert-view">
+                <p>You will be notified when silver drops below $<span id="sv-min-alert"></span>/oz or exceeds $<span id="sv-max-alert"></span>/oz.</p>
+            </div>
             <h4>Gold:</h4>
             <button onclick="setAlert(+5, 'gold');">+5%</button>
             <button onclick="setAlert(-5, 'gold');">-5%</button>
@@ -317,13 +323,15 @@
                     if (data.price >= svAlertMax){
                         alert('Silver spot price exceeded $'+svAlertMax + "/oz!")
                         svAlertMax = 1000000;
-                        localStorage.setItem('svAlertMax', svAlertMax);
+                        localStorage.removeItem('svAlertMax');
                     }
                     if (data.price <= svAlertMin){
                         alert('Silver spot price dropped below $'+svAlertMin + "/oz!")
                         svAlertMin = -1;
                         localStorage.setItem('svAlertMax', svAlertMax);
                     }
+                    document.getElementById('sv-min-alert').innerHTML = svAlertMin;
+                    document.getElementById('sv-max-alert').innerHTML = svAlertMax;
                 }, 100);
                 }, 1000);
                 setInterval(() => {
