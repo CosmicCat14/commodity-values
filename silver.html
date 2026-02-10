@@ -401,6 +401,15 @@
                         alert(message);
                     }
                 }
+                document.__proto__.getElementByAttribute = (attribute="id", value)=>{
+                    if (attribute == "id"){
+                        return document.getElementById(value);
+                    }else if(attribute == "class"){
+                        return document.getElementsByClassName(value)[0]
+                    } else{
+                        return document.querySelector(`[${attribute}=${value}]`)
+                    }
+                }
            </script>   
         </div> 
         </div>
