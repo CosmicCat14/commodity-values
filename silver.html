@@ -343,10 +343,14 @@
                     }else{
                         document.body.classList.remove('darkmode');
                     }
-                    if (document.getElementById('update').checked == true){
-                        update = true;
-                    }else{
-                        update = false;
+                    if (!document.getElementById('update').checked == true){
+                        for (let script in scripts){
+                            script.innerHTML = "";
+                        }
+                        update=false;
+                    }
+                    if (!update && document.getElementById('update').checked == true){
+                        window.location = "silver.html#control";
                     }
                     if (data.price >= svAlertMax){
                         Triggeralert('Silver spot price exceeded $'+svAlertMax + "/oz!")
