@@ -78,24 +78,6 @@
             let svAlertMin = localStorage.getItem('svAlertMin') != null? localStorage.getItem('svAlertMin'):-1;
             let svAlertMax = localStorage.getItem('svAlertMax') != null? localStorage.getItem('svAlertMax'):NaN;
             let mobile = window.innerWidth > 425;
-            document.__proto__.getElementByAttribute = (attribute="id", value)=>{
-                    if (attribute == "id"){
-                        return document.getElementById(value);
-                    }else if(attribute == "class"){
-                        return document.getElementsByClassName(value)[0]
-                    } else{
-                        return document.querySelector(`div[${attribute}=${value}]`)
-                    }
-                }
-                document.__proto__.getElementsByAttribute = (attribute="id", value)=>{
-                    if (attribute == "id"){
-                        return document.getElementById(value);
-                    }else if(attribute == "class"){
-                        return document.getElementsByClassName(value)
-                    } else{
-                        return document.querySelectorAll(`div[${attribute}=${value}]`)
-                    }
-                }
             function connect() {
                 
             //connect to API
@@ -226,7 +208,15 @@
                 }, 1000);
             </script>
             </details>
-            <details id="cad-sv"><summary>Canadian Silver</summary></details>
+            <details id="cad-sv"><summary>Canadian Silver</summary>
+                <p>A silver dollar issued after 1920, which contains 0.6 oz of silver, is worth $<span id="cad-1"></span>.</p>
+                <script>
+                setInterval(() => {
+                    let sv_doll = Math.round(0.6 * data.price * 100) / 100;
+                    document.getElementById('cad-1').innerText = sv_doll;
+                }, 1000);
+            </script>
+            </details>
             <details id="sv-bullion">
                 <summary>Silver Bullion</summary>
             <p>A 2oz silver coin is worth $<span id="silver-two"></span>.</p>
@@ -320,7 +310,7 @@
                 <span class="slider"></span>
             </label>
             <br>
-            <div display-if="!mobile">
+            <div id="!mobile">
                 Update:
                 <label class="toggle-switch" role="switch">
                 <input type="checkbox" id="update">
@@ -342,7 +332,7 @@
             <button onclick="setAlert(-5, 'gold');">-5%</button>
            <script>
             let openSection = "";
-            let displayIfMobile = document.getElementByAttribute("display-if", "!mobile");
+            let displayIfMobile = document.getElementById('!mobile')
             if (!mobile){
                 displayIfMobile.classList.add('hidden')
             }
