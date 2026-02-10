@@ -77,6 +77,24 @@
             let svAlertMin = localStorage.getItem('svAlertMin') != null? localStorage.getItem('svAlertMin'):-1;
             let svAlertMax = localStorage.getItem('svAlertMax') != null? localStorage.getItem('svAlertMax'):NaN;
             let mobile = window.innerWidth > 425;
+            document.__proto__.getElementByAttribute = (attribute="id", value)=>{
+                    if (attribute == "id"){
+                        return document.getElementById(value);
+                    }else if(attribute == "class"){
+                        return document.getElementsByClassName(value)[0]
+                    } else{
+                        return document.querySelector(`[${attribute}=${value}]`)
+                    }
+                }
+                document.__proto__.getElementsByAttribute = (attribute="id", value)=>{
+                    if (attribute == "id"){
+                        return document.getElementById(value);
+                    }else if(attribute == "class"){
+                        return document.getElementsByClassName(value)
+                    } else{
+                        return document.querySelectorAll(`[${attribute}=${value}]`)
+                    }
+                }
             function connect() {
                 
             //connect to API
@@ -299,6 +317,13 @@
                 <input type="checkbox" id="darkmode">
                 <span class="slider"></span>
             </label>
+            <div display-if="!mobile">
+                Update:
+                <label class="toggle-switch" role="switch">
+                <input type="checkbox" id="update">
+                <span class="slider"></span>
+            </label>
+            </div>
             <h3>Alerts:</h3>
             <h4>Silver:</h4>
             <button onclick="setAlert(+5, 'silver');">+5%</button>
@@ -313,7 +338,11 @@
             <button onclick="setAlert(+5, 'gold');">+5%</button>
             <button onclick="setAlert(-5, 'gold');">-5%</button>
            <script>
-            let openSection = ""; 
+            let openSection = "";
+            let displayIfMobile = document.getElementByAttribute("display-if", "!mobile");
+            if (!mobile){
+                displayIfMobile.classList.add('hidden')
+            }
             setTimeout(() => {
                 setInterval(() => {
                     if (document.getElementById('darkmode').checked == true){
@@ -401,25 +430,6 @@
                         alert(message);
                     }
                 }
-                document.__proto__.getElementByAttribute = (attribute="id", value)=>{
-                    if (attribute == "id"){
-                        return document.getElementById(value);
-                    }else if(attribute == "class"){
-                        return document.getElementsByClassName(value)[0]
-                    } else{
-                        return document.querySelector(`[${attribute}=${value}]`)
-                    }
-                }
-                document.__proto__.getElementsByAttribute = (attribute="id", value)=>{
-                    if (attribute == "id"){
-                        return document.getElementById(value);
-                    }else if(attribute == "class"){
-                        return document.getElementsByClassName(value)
-                    } else{
-                        return document.querySelectorAll(`[${attribute}=${value}]`)
-                    }
-                }
-                
            </script>   
         </div> 
         </div>
