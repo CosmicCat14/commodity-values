@@ -84,7 +84,7 @@
                     }else if(attribute == "class"){
                         return document.getElementsByClassName(value)[0]
                     } else{
-                        return document.querySelector(`[${attribute}=${value}]`)
+                        return document.querySelector(`div[${attribute}=${value}]`)
                     }
                 }
                 document.__proto__.getElementsByAttribute = (attribute="id", value)=>{
@@ -93,7 +93,7 @@
                     }else if(attribute == "class"){
                         return document.getElementsByClassName(value)
                     } else{
-                        return document.querySelectorAll(`[${attribute}=${value}]`)
+                        return document.querySelectorAll(`div[${attribute}=${value}]`)
                     }
                 }
             function connect() {
