@@ -172,6 +172,13 @@
                 document.getElementById('silver-hdime').innerText = sv_dime;
                 }, 1000);
             </script>
+            <p>A silver war nickel, which contains 0.06 ounces of silver, is worth $<span id="silver-nkl"></span>.</p>
+            <script>
+                setInterval(() => {
+                    let sv_dime = Math.round(0.05626 * data.price *100) / 100;
+                document.getElementById('silver-nkl').innerText = sv_dime;
+                }, 1000);
+            </script>
             <p>A silver dime, which contains 0.08 ounces of silver, is worth $<span id="silver-dime"></span>.</p>
             <script>
                 setInterval(() => {
@@ -209,7 +216,21 @@
             </script>
             </details>
             <details id="cad-sv"><summary>Canadian Silver</summary>
-                <p>A silver dollar issued after 1920, which contains 0.6 oz of silver, is worth $<span id="cad-1"></span>.</p>
+                <p>A silver quarter issued after 1920, which contains 0.15 oz of silver, is worth $<span id="cad-1/4"></span>.</p>
+                <script>
+                setInterval(() => {
+                    let sv_doll = Math.round(0.15 * data.price * 100) / 100;
+                    document.getElementById('cad-1/4').innerText = sv_doll;
+                }, 1000);
+            </script>
+                <p>A silver Canadian half-dollar issued after 1920, which contains 0.3 oz of silver, is worth $<span id="cad-1÷2"></span>.</p>
+                <script>
+                setInterval(() => {
+                    let sv_doll = Math.round(0.3 * data.price * 100) / 100;
+                    document.getElementById('cad-1÷2').innerText = sv_doll;
+                }, 1000);
+            </script>
+                <p>A silver Canadian dollar issued after 1920, which contains 0.6 oz of silver, is worth $<span id="cad-1"></span>.</p>
                 <script>
                 setInterval(() => {
                     let sv_doll = Math.round(0.6 * data.price * 100) / 100;
