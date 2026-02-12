@@ -77,7 +77,7 @@
             let timerInterval = 0;
             let svAlertMin = localStorage.getItem('svAlertMin') != null? localStorage.getItem('svAlertMin'):-1;
             let svAlertMax = localStorage.getItem('svAlertMax') != null? localStorage.getItem('svAlertMax'):NaN;
-            let mobile = window.innerWidth < 425;
+            let mobile = window.innerWidth > 425;
             function connect() {
                 
             //connect to API
