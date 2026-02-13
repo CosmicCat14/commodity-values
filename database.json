@@ -152,5 +152,55 @@
         "svcontent":0.1808,
         "yearStart":1932,
         "yearEnd":1964
-    }
+    },
+    {
+        "denom":50,
+        "name":"Flowing Hair Half Dollar",
+        "svcontent":0.3868,
+        "yearStart":1794,
+        "yearEnd":1795
+    },
+    {
+        "denom":50,
+        "name":"Draped Bust Half Dollar",
+        "svcontent":0.3868,
+        "yearStart":1796,
+        "yearEnd":1807
+    },
+    {
+        "denom":50,
+        "name":"Capped Bust Half Dollar",
+        "svcontent":0.3868,
+        "yearStart":1807,
+        "yearEnd":1839
+    },
+    {
+        "denom":50,
+        "name":"early Liberty Seated Half Dollar",
+        "svcontent":0.3866,
+        "yearStart":1839,
+        "yearEnd":1853
+    },
+    {
+        "denom":50,
+        "name":"Liberty Seated Half Dollar",
+        "svcontent":0.3600,
+        "yearStart":1853,
+        "yearEnd":1873
+    },
+    {
+        "denom":50,
+        "name":"Liberty Seated Half Dollar",
+        "svcontent":0.3617,
+        "yearStart":1863,
+        "yearEnd":1891
+    },
+    {
+        "denom":50,
+        "name":"Barber Half Dollar",
+        "svcontent":0.3617,
+        "yearStart":1892,
+        "yearEnd":1915
+    },
+    
 ]

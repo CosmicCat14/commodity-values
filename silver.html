@@ -9,7 +9,7 @@
     <body>
         <div id="header">
             <h1>Live Silver and Gold coin values</h1>
-             <search class="hidden" id="search">
+             <search class="hidden toggle">
             <h2>Search for a coin:</h2>
             <form action="search.html" method="get">
                 <label for="denom">Denomination:</label>
@@ -30,7 +30,7 @@
                 <button>Search</button><br>
             </form>
         </search>
-        <button onclick="document.getElementById('search').classList.toggle('hidden')">Search</button>
+        <button onclick="let tgl = document.getElementsByClassName('toggle');tgl[0].classList.toggle('hidden');tgl[1].classList.toggle('hidden')" class="toggle">Show search...</button>
         </div>
         <script>
             let update = true;
