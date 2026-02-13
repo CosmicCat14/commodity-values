@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Silver and gold coin values</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <div id="header">
+            <h1>Live Silver and Gold coin values</h1>
+        </div>
+        <div id="result">
+        <!-- matches for the search query-->
+        </div>
+        <script>
+            let svspot;
+            let update = true;
+            let timer = 0;
+            let timerInterval = 0;
+            let mobile = window.innerWidth > 425;
+            function connect() {
+                
+            //connect to API
+            fetch('https://api.gold-api.com/price/XAG')
+            .then(response => {
+                if (!response.ok) {
+                    console.log(`HTTP error! status: ${response.status}`);
+                }
+                // Check if response has content
+                return response.text(); // Get as text first
+                })
+            .then(text => {
+            if (!text) {
+            console.error('Empty response received');
+            return;
+            }
+            data = JSON.parse(text); // Parse manually
+            manage(data);
+            })
+            .catch(error => console.error('Fetch error:', error));
+            function manage(d) {
+                svspot = d;
+            }
+            fetch('https://api.gold-api.com/price/XAU')
+            .then(response => {
+                if (!response.ok) {
+                    console.log(`HTTP error! status: ${response.status}`);
+                }
+                // Check if response has content
+                return response.text(); // Get as text first
+                })
+            .then(text => {
+            if (!text) {
+            console.error('Empty response received');
+            return;
+            }
+            gold = JSON.parse(text); // Parse manually
+            manageGold(gold);
+            })
+            .catch(error => console.error('Fetch error:', error));
+        }
+            function manageGold(d) {
+                gold = d;
+                //stop timer if any
+                if (timerInterval != 0){
+                    clearInterval(timerInterval);
+                    timerInterval = 0;
+                }
+                //start timer
+                timer = 0;
+                timerInterval =  setInterval(()=>timer++, 1000)
+            }
+            connect();
+            //search database.json after delay...
+            setTimeout(() => {
+            fetch('https://cosmiccat14.github.io/commodity-values/database.json')
+            .then(response => {
+                if (!response.ok) {
+                    console.log(`HTTP error! status: ${response.status}`);
+                }
+                // Check if response has content
+                return response.text(); // Get as text first
+                })
+            .then(text => {
+            if (!text) {
+            console.error('Empty response received');
+            return;
+            }
+            let data = JSON.parse(text); // Parse manually
+
+            //handle data
+            let siftedData = [];
+            if (location.href.split('denom=')[1].split('&')[0] != "null"){ //if denomination query supplied
+                let denom = location.href.split('denom=')[1].split('&')[0];
+                data.forEach(element => {
+                    if (element.denom == denom){
+                        siftedData.push(element);
+                    }
+                });
+                if (location.href.split('year=')[1].split('&')[0] != "null"){ //if year also supplied
+                    let dblsfteddata = [];
+                    siftedData.forEach(element => {
+                    if (element.denom == denom){
+                        dblsfteddata.push(element);
+                    }
+                    siftedData = dblsfteddata;
+                });
+                }
+            }else{//if year ONLY is supplied
+                let year = location.href.split('year')[1].split('&')[0];
+                data.forEach(element => {
+                    if (element.yearStart < year < element.yearEnd){
+                        siftedData.push(element);
+                    }
+                });
+            }
+            //display sifted data:
+            let out = document.getElementById('result')
+            out.innerHTML = "";
+            siftedData.forEach((value)=>{
+                let p = document.createElement('p');
+                p.innerHTML = `A ${value.name} issued between ${value.yearStart} and ${value.yearEnd}, which contains ${value.svcontent} ounces of silver, is worth $${value.svcontent * svspot.price}.`;
+                out.appendChild(p)
+            })
+            })
+            .catch(error => console.error('Fetch error:', error));
+            }, 1000);
+        </script>
+    </body>
+</html>
