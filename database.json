@@ -96,6 +96,13 @@
         "svcontent":0.0723,
         "yearStart":1946,
         "yearEnd":1964
+    },
+    {
+        "denom":20,
+        "name":"U.S. Twenty Cent Piece",
+        "svcontent":0.1447,
+        "yearStart":1875,
+        "yearEnd":1878
     }
 
 ]
