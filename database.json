@@ -103,6 +103,54 @@
         "svcontent":0.1447,
         "yearStart":1875,
         "yearEnd":1878
+    },
+    {
+        "denom":25,
+        "name":"Draped Bust Quarter",
+        "svcontent":0.1934,
+        "yearStart":1796,
+        "yearEnd":1807
+    },
+    {
+        "denom":25,
+        "name":"Capped Bust Quarter",
+        "svcontent":0.1934,
+        "yearStart":1815,
+        "yearEnd":1838
+    },
+    {
+        "denom":25,
+        "name":"early Liberty Seated Quarter",
+        "svcontent":0.1934,
+        "yearStart":1838,
+        "yearEnd":1853
+    },
+    {
+        "denom":25,
+        "name":"Liberty Seated Quarter",
+        "svcontent":0.1800,
+        "yearStart":1853,
+        "yearEnd":1891
+    },
+    {
+        "denom":25,
+        "name":"Barber Quarter",
+        "svcontent":0.1808,
+        "yearStart":1892,
+        "yearEnd":1915
+    },
+    {
+        "denom":25,
+        "name":"Standing Liberty Quarter",
+        "svcontent":0.1808,
+        "yearStart":1916,
+        "yearEnd":1930
+    },
+    {
+        "denom":25,
+        "name":"Washington Quarter",
+        "svcontent":0.1808,
+        "yearStart":1932,
+        "yearEnd":1964
     }
-
 ]
