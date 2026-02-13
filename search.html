@@ -92,7 +92,7 @@
 
             //handle data
             let siftedData = [];
-            if (location.href.split('denom=')[1].split('&')[0] != "null"){ //if denomination query supplied
+            if (location.href.split('denom=')[1].split('&')[0] != "none"){ //if denomination query supplied
                 let denom = location.href.split('denom=')[1].split('&')[0];
                 data.forEach(element => {
                     if (element.denom == denom){
@@ -111,7 +111,7 @@
             }else{//if year ONLY is supplied
                 let year = location.href.split('year')[1];
                 data.forEach(element => {
-                    if (element.yearStart < year < element.yearEnd){
+                    if (year > element.yearStart && year < element.yearEnd){
                         siftedData.push(element);
                     }
                 });
