@@ -54,5 +54,27 @@
         "svcontent":0.06,
         "yearStart":1943,
         "yearEnd":1945
+    },
+    {
+        "denom":10,
+        "name": "Draped Bust, Capped Bust, and early Liberty Seated Dimes",
+        "svcontent":0.0775,
+        "yearStart":1796, 
+        "yearEnd":1853
+    },
+    {
+        "denom":10,
+        "name":"Liberty Seated Dimes",
+        "svcontent":0.0721,
+        "yearStart":1853,
+        "yearEnd":1873
+    },
+    {
+        "denom":10,
+        "name":"newer Liberty Seated dimes, Barber Dimes, Winged Liberty dimes ('mercury dimes'), and 1946-1964 Silver Dimes",
+        "svcontent":0.0723,
+        "yearStart":1873,
+        "yearEnd":1964
     }
+
 ]
