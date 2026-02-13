@@ -201,6 +201,33 @@
         "svcontent":0.3617,
         "yearStart":1892,
         "yearEnd":1915
+    },
+    {
+        "denom":50,
+        "name":"Walking Liberty Half Dollar",
+        "svcontent":0.3617,
+        "yearStart":1916,
+        "yearEnd":1947
+    },
+    {
+        "denom":50,
+        "name":"Franklin Half Dollar",
+        "svcontent":0.3617,
+        "yearStart":1948,
+        "yearEnd":1963
+    },
+    {
+        "denom":50,
+        "name":"Kennedy Half Dollar",
+        "svcontent":0.3617,
+        "yearStart":1964,
+        "yearEnd":1964
+    },
+    {
+        "denom":50,
+        "name":"Kennedy Half Dollar",
+        "svcontent":0.1808,
+        "yearStart":1965,
+        "yearEnd":1969
     }
-    
 ]
