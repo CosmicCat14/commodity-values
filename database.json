@@ -1,9 +1,58 @@
 [
     {
         "denom":5,
-        "name":"Silver U.S Half Dime",
-        "svcontent":0.04,
+        "name":"Half Disme",
+        "svcontent":0.0387,
         "yearStart":1792,
-        "yearEnd":1850
+        "yearEnd":1792
+    },
+    {
+        "denom":5,
+        "name":"Flowing Hair Half Dime",
+        "svcontent":0.0387,
+        "yearStart":1794,
+        "yearEnd":1795
+    },
+    {
+        "denom":5,
+        "name":"Draped Bust Half Dime",
+        "svcontent":0.0387,
+        "yearStart":1796,
+        "yearEnd":1805
+    },
+    {
+        "denom":5,
+        "name":"Capped Bust Half Dime",
+        "svcontent":0.0387,
+        "yearStart":1829,
+        "yearEnd":1836
+    },
+    {
+        "denom":5,
+        "name":"Capped Bust Half Dime new composition",
+        "svcontent":0.0388,
+        "yearStart":1829,
+        "yearEnd":1836
+    },
+    {
+        "denom":5,
+        "name":"Liberty Seated Half Dime",
+        "svcontent":0.0388,
+        "yearStart":1837,
+        "yearEnd":1853
+    },
+    {
+        "denom":5,
+        "name":"Liberty Seated Half Dime",
+        "svcontent":0.0359,
+        "yearStart":1853,
+        "yearEnd":1873
+    },
+    {
+        "denom":5,
+        "name":"Wartime Silver Nickel",
+        "svcontent":0.06,
+        "yearStart":1943,
+        "yearEnd":1945
     }
 ]
