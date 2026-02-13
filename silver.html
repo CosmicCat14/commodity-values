@@ -13,7 +13,7 @@
             <h2>Search for a coin:</h2>
             <form action="search.html" method="get">
                 <label for="denom">Denomination:</label>
-                <select name="denom">
+                <select name="denom" id="denom">
                     <option value="none">Do not filter by denomination.</option>
                     <option value="5">Nickel / Half Dime</option>
                     <option value="10">Dime</option>
@@ -26,7 +26,7 @@
                     <option value="1000">10 Dollars</option>
                     <option value="2000">20 Dollars</option>
                 </select><br>
-                <label for="year">Year:</label><input type="text" name="year" maxlength="4"><br>
+                <label for="year">Year:</label><input type="text" name="year" maxlength="4" id="year"><br>
                 <button>Search</button><br>
             </form>
         </search>
