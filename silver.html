@@ -68,8 +68,28 @@
     </head>
     <body>
         <div id="header">
-            <h2>Live Silver and Gold coin values</h2>
-            
+            <h1>Live Silver and Gold coin values</h1>
+             <search>
+            <h2>Search for a coin:</h2>
+            <form action="search.html" method="get">
+                <label for="denom">Denomination:</label>
+                <select name="denom">
+                    <option value="none">Do not filter by denomination.</option>
+                    <option value="5">Nickel / Half Dime</option>
+                    <option value="10">Dime</option>
+                    <option value="20">20 Cent Piece</option>
+                    <option value="25">Quarter</option>
+                    <option value="50">Half Dollar</option>
+                    <option value="100">Dollar</option>
+                    <option value="250">2 1/2 Dollars</option>
+                    <option value="500">5 Dollars</option>
+                    <option value="1000">10 Dollars</option>
+                    <option value="2000">20 Dollars</option>
+                </select>
+                <input type="text" name="year" maxlength="4">
+                <button>Search</button>
+            </form>
+        </search>
         </div>
         <script>
             let update = true;
