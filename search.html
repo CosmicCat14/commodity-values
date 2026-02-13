@@ -99,7 +99,7 @@
                         siftedData.push(element);
                     }
                 });
-                if (location.href.split('year=')[1].split('&')[0] != "null"){ //if year also supplied
+                if (location.href.split('year=')[1]){ //if year also supplied
                     let dblsfteddata = [];
                     siftedData.forEach(element => {
                     if (element.denom == denom){
@@ -109,7 +109,7 @@
                 });
                 }
             }else{//if year ONLY is supplied
-                let year = location.href.split('year')[1].split('&')[0];
+                let year = location.href.split('year')[1];
                 data.forEach(element => {
                     if (element.yearStart < year < element.yearEnd){
                         siftedData.push(element);
