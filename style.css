@@ -56,3 +56,12 @@
                 .toggle-switch input:checked + .slider::before {
                     transform: translateX(26px);
                 }
+                a:link{
+                    color: blue;
+                }
+                a:visited{
+                    color: blue;
+                }
+                a:hover{
+                    color: yellow;
+                }
