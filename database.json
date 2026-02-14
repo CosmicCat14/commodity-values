@@ -229,5 +229,54 @@
         "svcontent":0.1808,
         "yearStart":1965,
         "yearEnd":1969
+    },
+    {
+        "denom":100,
+        "name":"Flowing Hair Dollar",
+        "svcontent":0.7801,
+        "yearStart":1794,
+        "yearEnd":1795
+    },
+    {
+        "denom":100,
+        "name":"Draped Bust Dollar",
+        "svcontent":0.7801,
+        "yearStart":1795,
+        "yearEnd":1804
+    },
+    {
+        "denom":100,
+        "name":"Gobrecht Dollar",
+        "svcontent":0.7801,
+        "yearStart":1836,
+        "yearEnd":1839
+    },
+    {
+        "denom":100,
+        "name":"Liberty Seated Dollar",
+        "svcontent":0.7734,
+        "yearStart":1840,
+        "yearEnd":1873
+    },
+    {
+        "denom":100,
+        "name":"Trade Dollar",
+        "svcontent":0.7874,
+        "yearStart":1873,
+        "yearEnd":1885
+    },
+    {
+        "denom":100,
+        "name":"Morgan Dollar",
+        "svcontent":0.77,
+        "yearStart":1878,
+        "yearEnd":1921
+    },
+    {
+        "denom":100,
+        "name":"Peace Dollar",
+        "svcontent":0.77,
+        "yearStart":1922,
+        "yearEnd":1935
     }
 ]
