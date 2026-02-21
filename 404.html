@@ -1,45 +1,10 @@
 <!doctype html>
 <html>
   <head>
-    <title>Silver and gold coin values</title>
+    <title>Redirecting to main page...</title>
   </head>
   <body>
-    <script>
-    let correspondingPage = "";
-    if (location.href.split('?')[0] ="https://cosmiccat14.github.io/commodity-values/"){
-      correspondingPage = "https://cosmiccat14.github.io/commodity-values/silver.html";
-    }else if (location.href.split('?')[0] ="https://cosmiccat14.github.io/commodity-values/search"){
-      correspondingPage = "https://cosmiccat14.github.io/commodity-values/search.html";
-    }else{
-      correspondingPage = "https://cosmiccat14.github.io/commodity-values/silver.html";
-    }
-      fetch(correspondingPage)
-            .then(response => {
-                if (!response.ok) {
-                    console.log(`HTTP error! status: ${response.status}`);
-                }
-                // Check if response has content
-                return response.text(); // Get as text first
-                })
-            .then(text => {
-            if (!text) {
-            console.error('Empty response received');
-            return;
-            }
-            manage(text);
-            })
-            .catch(error => console.error('Fetch error:', error));
-            function inform() {
-                document.getElementById('inform-04').open = true;
-            }
-            function dismiss() {
-                document.getElementById('inform-04').open = false;
-            }
-            function manage(d="") {
-                let data = d;
-                document.body.innerHTML = data.split('<body>')[1].split('</body>')[0];
-            }
-            
-      </script>
+
+    <script>location="http://cosmiccat14.github.io/commodity-values/silver.html"</script>
   </body>
 </html>
