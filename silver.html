@@ -346,6 +346,11 @@
                     }
                     document.getElementById('sv-min-alert').innerHTML = svAlertMin;
                     document.getElementById('sv-max-alert').innerHTML = svAlertMax;
+                    if (new Date().getHours() ==  19 && new Date().getMinutes() == 0){
+                        document.getElementById('darkmode').checked = true;
+                    } else if (new Date().getHours() == 8 && new Date().getMinutes() == 0){
+                        document.getElementById('darkmode').checked = true;
+                    }
                 }, 100);
                 }, 1000);
                 setInterval(() => {
