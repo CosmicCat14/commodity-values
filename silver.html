@@ -318,6 +318,7 @@
             if (!mobile){
                 displayIfMobile.classList.add('hidden')
             }
+            let currenttime = new Date();
             setTimeout(() => {
                 setInterval(() => {
                     if (document.getElementById('darkmode').checked == true){
@@ -326,6 +327,7 @@
                         document.body.classList.remove('darkmode');
                     }
                     if (!document.getElementById('update').checked == true){
+                        let scripts = document.getElementsByTagName('script')
                         for (let script in scripts){
                             script.innerHTML = "";
                         }
@@ -344,11 +346,12 @@
                         svAlertMin = -1;
                         localStorage.setItem('svAlertMax', svAlertMax);
                     }
+
                     document.getElementById('sv-min-alert').innerHTML = svAlertMin;
                     document.getElementById('sv-max-alert').innerHTML = svAlertMax;
-                    if (new Date().getHours() ==  19 && new Date().getMinutes() == 0){
+                    if (currenttime.getHours() ==  19 && new Date().getMinutes() == 0){
                         document.getElementById('darkmode').checked = true;
-                    } else if (new Date().getHours() == 8 && new Date().getMinutes() == 0){
+                    } else if (currenttime.getHours() == 8 && new Date().getMinutes() == 0){
                         document.getElementById('darkmode').checked = true;
                     }
                 }, 100);
