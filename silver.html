@@ -5,6 +5,13 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Silver and gold coin values</title>
         <link rel="stylesheet" href="style.css">
+        <script>
+            navigator.serviceWorker.register('sw.js').then(function(registration) {
+            console.log("Registered service worker with scope: ", registration.scope);
+        }, function(error) {
+            console.log("Service worker registration failed: ", error);
+        });
+        </script>
     </head>
     <body>
         <div id="header">
@@ -408,17 +415,17 @@
                             //pass
                             break;
                         default:
-                            console.log('Invalid parameter entered in `setAlert`: commodity');
+                            console.warn('Invalid parameter entered in `setAlert`: commodity');
                             break;
                     }
                 }
-                function Triggeralert(message, messagebody) {
+                function Triggeralert(message) {
                     if (mobile){
                         Notification.requestPermission().then((result) => {
                             if (result === "granted") {
                                 navigator.serviceWorker.ready.then((registration) => {
-                                    registration.showNotification(message, {
-                                        body: messagebody,
+                                    registration.showNotification("Silver or Gold Alert", {
+                                        body: message,
                                         icon: "",
                                     });
                                 });
