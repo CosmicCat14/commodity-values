@@ -46,6 +46,20 @@
             let svAlertMin = localStorage.getItem('svAlertMin') != null? localStorage.getItem('svAlertMin'):-1;
             let svAlertMax = localStorage.getItem('svAlertMax') != null? localStorage.getItem('svAlertMax'):NaN;
             let mobile = window.innerWidth > 425;
+            let data = {
+                "name": "Silver",
+                "price": 93.914001,
+                "symbol": "XAG",
+                "updatedAt": "2026-02-28T23:01:37Z",
+                "updatedAtReadable": "a few seconds ago"
+            };
+            let gold = {
+                "name": "Gold",
+                "price": 5280,
+                "symbol": "XAU",
+                "updatedAt": "2026-02-28T23:01:37Z",
+                "updatedAtReadable": "a few seconds ago"
+            }
             function connect() {
                 
             //connect to API
