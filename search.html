@@ -101,15 +101,16 @@
                 });
                 if (location.href.split('year=')[1]){ //if year also supplied
                     let dblsfteddata = [];
+                    let year = location.href.split('year=')[1];
                     siftedData.forEach(element => {
-                    if (element.denom == denom){
-                        dblsfteddata.push(element);
-                    }
+                        if (year > element.yearStart && year < element.yearEnd){
+                            dblsfteddata.push(element);
+                        }
+                    });
                     siftedData = dblsfteddata;
-                });
                 }
             }else{//if year ONLY is supplied
-                let year = location.href.split('year')[1];
+                let year = location.href.split('year=')[1];
                 data.forEach(element => {
                     if (year > element.yearStart && year < element.yearEnd){
                         siftedData.push(element);

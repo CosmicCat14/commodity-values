@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Offline | Silver and gold coin values</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <div id="header">
+            <h1>Live Silver and Gold coin values</h1>
+             <search class="hidden toggle">
+            <h2>Search for a coin:</h2>
+            <form action="search.html" method="get">
+                <label for="denom">Denomination:</label>
+                <select name="denom" id="denom">
+                    <option value="none">Do not filter by denomination.</option>
+                    <option value="5">Nickel / Half Dime</option>
+                    <option value="10">Dime</option>
+                    <option value="20">20 Cent Piece</option>
+                    <option value="25">Quarter</option>
+                    <option value="50">Half Dollar</option>
+                    <option value="100">Dollar</option>
+                    <option value="250">2 1/2 Dollars</option>
+                    <option value="500">5 Dollars</option>
+                    <option value="1000">10 Dollars</option>
+                    <option value="2000">20 Dollars</option>
+                </select><br>
+                <label for="year">Year:</label><input type="text" name="year" maxlength="4" id="year"><br>
+                <button>Search</button><br>
+            </form>
+        </search>
+        <button onclick="let tgl = document.getElementsByClassName('toggle');tgl[0].classList.toggle('hidden');tgl[1].classList.toggle('hidden')" class="toggle">Show search...</button>
+        </div>
+        <script>
+            let update = true;
+            let timer = 0;
+            let timerInterval = 0;
+            let svAlertMin = localStorage.getItem('svAlertMin') != null? localStorage.getItem('svAlertMin'):-1;
+            let svAlertMax = localStorage.getItem('svAlertMax') != null? localStorage.getItem('svAlertMax'):NaN;
+            let mobile = window.innerWidth > 425;
+            let data = {
+                "name": "Silver",
+                "price": 93.914001,
+                "symbol": "XAG",
+                "updatedAt": "2026-02-28T23:01:37Z",
+                "updatedAtReadable": "a few seconds ago"
+            };
+            let gold = {
+                "name": "Gold",
+                "price": 5280,
+                "symbol": "XAU",
+                "updatedAt": "2026-02-28T23:01:37Z",
+                "updatedAtReadable": "a few seconds ago"
+            }
+            function connect() {
+                
+            //connect to API
+            fetch('https://api.gold-api.com/price/XAG')
+            .then(response => {
+                if (!response.ok) {
+                    console.log(`HTTP error! status: ${response.status}`);
+                }
+                // Check if response has content
+                return response.text(); // Get as text first
+                })
+            .then(text => {
+            if (!text) {
+            console.error('Empty response received');
+            return;
+            }
+            data = JSON.parse(text); // Parse manually
+            manage(data);
+            })
+            .catch(error => console.error('Fetch error:', error));
+            function inform() {
+                document.getElementById('inform-04').open = true;
+            }
+            function dismiss() {
+                document.getElementById('inform-04').open = false;
+            }
+            function manage(d) {
+                data = d;
+            }
+            fetch('https://api.gold-api.com/price/XAU')
+            .then(response => {
+                if (!response.ok) {
+                    console.log(`HTTP error! status: ${response.status}`);
+                }
+                // Check if response has content
+                return response.text(); // Get as text first
+                })
+            .then(text => {
+            if (!text) {
+            console.error('Empty response received');
+            return;
+            }
+            gold = JSON.parse(text); // Parse manually
+            manageGold(gold);
+            })
+            .catch(error => console.error('Fetch error:', error));
+        }
+            function manageGold(d) {
+                gold = d;
+                //stop timer if any
+                if (timerInterval != 0){
+                    clearInterval(timerInterval);
+                    timerInterval = 0;
+                }
+                //start timer
+                timer = 0;
+                timerInterval =  setInterval(()=>timer++, 1000)
+            }
+            connect();
+        </script>
+        <div id="bodycontent">
+            Prices Last updated <span id="time"></span> seconds ago.
+            <script>
+            setInterval(() => {
+
+                    let sv_updated = timer;
+                    if (timer > 29 & update){
+                        connect();
+                    }
+                    document.getElementById('time').innerText = sv_updated;
+                }, 1000);
+            </script>
+            <h2>Silver</h2>
+            <p>Current silver spot price: $<span id="svspot"></span>.</p>
+            <script>
+                let storedspot;
+            setInterval(() => {
+                    document.getElementById('svspot').classList.remove('highlight')
+                    let sv_spot = Math.floor(data.price * 100) /100;
+                    if (storedspot != sv_spot){
+                        document.getElementById('svspot').classList.add('highlight')
+                    }
+                    document.getElementById('svspot').innerText = sv_spot;
+                    storedspot = sv_spot;
+                }, 1000);
+            </script>
+            <details id="sv-usa" open><summary>U.S Circulating and Commemorative Silver coins</summary>
+            <p>A silver half dime, which contains 0.04 ounces of silver, is worth $<span id="silver-hdime"></span>.</p>
+            <script>
+                setInterval(() => {
+                    let sv_dime = Math.round(0.04 * data.price *100) / 100;
+                document.getElementById('silver-hdime').innerText = sv_dime;
+                }, 1000);
+            </script>
+            <p>A silver war nickel, which contains 0.06 ounces of silver, is worth $<span id="silver-nkl"></span>.</p>
+            <script>
+                setInterval(() => {
+                    let sv_dime = Math.round(0.05626 * data.price *100) / 100;
+                document.getElementById('silver-nkl').innerText = sv_dime;
+                }, 1000);
+            </script>
+            <p>A silver dime, which contains 0.08 ounces of silver, is worth $<span id="silver-dime"></span>.</p>
+            <script>
+                setInterval(() => {
+                    let sv_dime = Math.round(0.08 * data.price *100) / 100;
+                document.getElementById('silver-dime').innerText = sv_dime;
+                }, 1000);
+            </script>
+            <p>A silver quarter, which contains 0.18 ounces of silver, is worth $<span id="silver-qtr"></span>.</p>
+            <script>
+                setInterval(() => {
+                    let sv_qtr = Math.round(0.18 * data.price *100) / 100;
+                    document.getElementById('silver-qtr').innerText = sv_qtr;
+                }, 1000);
+            </script>
+            <p>A silver 90% half-dollar, which contains 0.36 ounces of silver, is worth $<span id="silver-half"></span>.</p>
+            <script>
+                setInterval(() => {
+                    let sv_half = Math.round(0.36 * data.price *100) / 100;
+                    document.getElementById('silver-half').innerText = sv_half;
+                }, 1000);
+            </script>
+            <p>A silver clad half-dollar (40%), which contains 0.14792 ounces of silver, is worth $<span id="sv-half"></span>.</p>
+            <script>
+                setInterval(() => {
+                    let sv_half = Math.round(0.14792 * data.price *100) / 100;
+                    document.getElementById('sv-half').innerText = sv_half;
+                }, 1000);
+            </script>
+            <p>A silver dollar, which contains 0.77 ounces of silver, is worth $<span id="silver-dollar"></span>.</p>
+            <script>
+                setInterval(() => {
+                    let sv_doll = Math.round(0.77 * data.price *100) / 100;
+                    document.getElementById('silver-dollar').innerText = sv_doll;
+                }, 1000);
+            </script>
+            </details>
+            <details id="cad-sv"><summary>Canadian Silver</summary>
+                <p>A silver quarter issued after 1920, which contains 0.15 oz of silver, is worth $<span id="cad-1/4"></span>.</p>
+                <script>
+                setInterval(() => {
+                    let sv_doll = Math.round(0.15 * data.price * 100) / 100;
+                    document.getElementById('cad-1/4').innerText = sv_doll;
+                }, 1000);
+            </script>
+                <p>A silver Canadian half-dollar issued after 1920, which contains 0.3 oz of silver, is worth $<span id="cad-1÷2"></span>.</p>
+                <script>
+                setInterval(() => {
+                    let sv_doll = Math.round(0.3 * data.price * 100) / 100;
+                    document.getElementById('cad-1÷2').innerText = sv_doll;
+                }, 1000);
+            </script>
+                <p>A silver Canadian dollar issued after 1920, which contains 0.6 oz of silver, is worth $<span id="cad-1"></span>.</p>
+                <script>
+                setInterval(() => {
+                    let sv_doll = Math.round(0.6 * data.price * 100) / 100;
+                    document.getElementById('cad-1').innerText = sv_doll;
+                }, 1000);
+            </script>
+            </details>
+            <details id="sv-bullion">
+                <summary>Silver Bullion</summary>
+            <p>A 2oz silver coin is worth $<span id="silver-two"></span>.</p>
+            <script>
+                setInterval(() => {
+                    let sv_doll = Math.round(2 * data.price *100) / 100;
+                    document.getElementById('silver-two').innerText = sv_doll;
+                }, 1000);
+            </script>
+            <p>A 5oz silver coin is worth $<span id="silver-five"></span>.</p>
+            <script>
+                setInterval(() => {
+                    let sv_doll = Math.round(5 * data.price *100) / 100;
+                    document.getElementById('silver-five').innerText = sv_doll;
+                }, 1000);
+            </script>
+            </details>
+            <h1>Gold</h1>
+            <p>Current gold spot price: $<span id="goldspot"></span>.</p>
+            <script>
+            setInterval(() => {
+                    let gd_spot = Math.floor(gold.price * 100) / 100;
+                document.getElementById('goldspot').innerText = gd_spot;
+                }, 1000);
+            </script>
+            <details id="gd-bullion"><summary>Maple leaf gold</summary>
+            <p>A gold 1/10oz maple leaf is worth $<span id="0.1"></span>.</p>
+            <script>
+                setInterval(() => {
+                    let sv_doll = Math.round(0.1 * gold.price *100) / 100;
+                    document.getElementById('0.1').innerText = sv_doll;
+                }, 1000);
+            </script>
+            <p>A gold 1/4 oz maple leaf is worth $<span id="0.25"></span>.</p>
+            <script>
+                setInterval(() => {
+                    let sv_doll = Math.round(0.25 * gold.price *100) / 100;
+                    document.getElementById('0.25').innerText = sv_doll;
+                }, 1000);
+            </script>
+            <p>A gold 1/2oz maple leaf is worth $<span id="0.5"></span>.</p>
+            <script>
+                setInterval(() => {
+                    let sv_doll = Math.round(0.5 * gold.price *100) / 100;
+                    document.getElementById('0.5').innerText = sv_doll;
+                }, 1000);
+            </script>
+            <p>A gold 1 oz maple leaf is worth $<span id="1"></span>.</p>
+            <script>
+                setInterval(() => {
+                    let sv_doll = Math.round(gold.price *100) / 100;
+                    document.getElementById('1').innerText = sv_doll;
+                }, 1000);
+            </script>
+            </details>
+            
+            <p>A gold $2 1/2 coin, which contains 0.14 ounces of gold, is worth $<span id="2.5"></span>.</p>
+            <script>
+                setInterval(() => {
+                    let sv_doll = Math.round(0.14 * gold.price *100) / 100;
+                    document.getElementById('2.5').innerText = sv_doll;
+                }, 1000);
+            </script>
+            <p>A gold $5 coin, which contains 0.28 ounces of gold, is worth $<span id="5"></span>.</p>
+            <script>
+                setInterval(() => {
+                    let sv_doll = Math.round(0.28 * gold.price *100) / 100;
+                    document.getElementById('5').innerText = sv_doll;
+                }, 1000);
+            </script>
+            <p>A gold $10 coin, which contains about 0.5 ounces of gold, is worth $<span id="10"></span>.</p>
+            <script>
+                setInterval(() => {
+                    let sv_doll = Math.round(0.5 * gold.price *100) / 100;
+                    document.getElementById('10').innerText = sv_doll;
+                }, 1000);
+            </script>
+            <p>A gold $20 coin, which contains 0.96 ounces of gold, is worth $<span id="20"></span>.</p>
+            <script>
+                setInterval(() => {
+                    let sv_doll = Math.round(0.9675 * gold.price *100) / 100;
+                    document.getElementById('20').innerText = sv_doll;
+                }, 1000);
+            </script>
+            <button onclick="document.getElementById('control').classList.toggle('hidden')">...</button>
+
+        <div class="hidden" id="control">
+            Dark mode:
+            <label class="toggle-switch" role="switch">
+                <input type="checkbox" id="darkmode">
+                <span class="slider"></span>
+            </label>
+            <br>
+            <div id="!mobile">
+                Update:
+                <label class="toggle-switch" role="switch">
+                <input type="checkbox" id="update" checked="checked">
+                <span class="slider"></span>
+            </label>
+            </div>
+            <h3>Alerts:</h3>
+            <h4>Silver:</h4>
+            <button onclick="setAlert(+5, 'silver');">+5%</button>
+            <button onclick="setAlert(-5, 'silver');">-5%</button><br>
+            Custom<input type="number" id="input">%
+            <button onclick="setAlert(document.getElementById('input').value, 'silver');">Set</button><br>
+            <h5>Existing:</h5>
+            <div class="alert-view">
+                <p>You will be notified when silver drops below $<span id="sv-min-alert"></span>/oz or exceeds $<span id="sv-max-alert"></span>/oz.</p>
+            </div>
+            <h4>Gold:</h4>
+            <button onclick="setAlert(+5, 'gold');">+5%</button>
+            <button onclick="setAlert(-5, 'gold');">-5%</button>
+           <script>
+            let openSection = "";
+            let displayIfMobile = document.getElementById('!mobile')
+            if (!mobile){
+                displayIfMobile.classList.add('hidden')
+            }
+            let currenttime = new Date();
+            setTimeout(() => {
+                setInterval(() => {
+                    if (document.getElementById('darkmode').checked == true){
+                        document.body.classList.add('darkmode');
+                    }else{
+                        document.body.classList.remove('darkmode');
+                    }
+                    if (!document.getElementById('update').checked == true){
+                        let scripts = document.getElementsByTagName('script')
+                        for (let script in scripts){
+                            script.innerHTML = "";
+                        }
+                        update=false;
+                    }
+                    if (!update && document.getElementById('update').checked == true){
+                        window.location = "silver.html#control";
+                    }
+                    if (data.price >= svAlertMax){
+                        Triggeralert('Silver spot price exceeded $'+svAlertMax + "/oz!")
+                        svAlertMax = 1000000;
+                        localStorage.removeItem('svAlertMax');
+                    }
+                    if (data.price <= svAlertMin){
+                        Triggeralert('Silver spot price dropped below $'+svAlertMin + "/oz!")
+                        svAlertMin = -1;
+                        localStorage.setItem('svAlertMax', svAlertMax);
+                    }
+
+                    document.getElementById('sv-min-alert').innerHTML = svAlertMin;
+                    document.getElementById('sv-max-alert').innerHTML = svAlertMax;
+                    if (currenttime.getHours() ==  19 && currenttime.getMinutes() == 0){
+                        document.getElementById('darkmode').checked = true;
+                    } else if (currenttime.getHours() == 8 && currenttime.getMinutes() == 0){
+                        document.getElementById('darkmode').checked = false;
+                    }
+                }, 100);
+                }, 1000);
+                setInterval(() => {
+                    let nbr0pen = document.getElementById('sv-bullion').open?1:0;
+                    nbr0pen += document.getElementById('gd-bullion').open?1:0;
+                    nbr0pen += document.getElementById('sv-usa').open?1:0;
+                    nbr0pen += document.getElementById('cad-sv').open?1:0;
+                    if (nbr0pen>1){
+                        switch (openSection) {
+                            case "sv-bullion"://if the silver section is open and the gold section is being opened OR the U.S. silver section is being opened,
+                                document.getElementById("sv-bullion").open = false;//close the silver section
+                                break;
+                            case "gd-bullion"://if the gold section is open and the silver section is being opened OR the U.S. silver section is being opened,
+                                document.getElementById("gd-bullion").open = false;//close the gold section
+                                break;
+                            case "sv-usa"://if the US silver section is open and the silver section is being opened OR the gold section is being opened,
+                                document.getElementById("sv-usa").open = false;//close the US silver section
+                                break;
+                            case "cad-sv":
+                                document.getElementById('cad-sv').open = false;
+                        }
+                    }
+                    if (document.getElementById('sv-bullion').open){
+                        openSection = "sv-bullion";
+                    }
+                    if (document.getElementById('gd-bullion').open){
+                        openSection = "gd-bullion";
+                    }
+                    if (document.getElementById('sv-usa').open){
+                        openSection = "sv-usa";
+                    }
+                    if (document.getElementById('cad-sv').open){
+                        openSection = "cad-sv";
+                    }
+                }, 100);
+                function setAlert(percentabove=0, commodity="") {
+                    switch (commodity) {
+                        case "silver":
+                            console.log('setting alert for silver:')
+                            if (percentabove < 0){
+                                console.log('Triggered when silver drops below', data.price * (1 + 0.01*percentabove))
+                                svAlertMin = data.price * (1 + 0.01*percentabove);
+                                localStorage.setItem('svAlertMin', svAlertMin)
+                            }else{
+                                console.log('Triggered when silver rises above', data.price * (1 + 0.01*percentabove))
+                                svAlertMax = data.price * (1 + 0.01*percentabove);
+                                localStorage.setItem('svAlertMax', svAlertMax);
+                            }
+                            break;
+                    
+                        case "gold":
+                            //pass
+                            break;
+                        default:
+                            console.warn('Invalid parameter entered in `setAlert`: commodity');
+                            break;
+                    }
+                }
+                function Triggeralert(message) {
+                    if (mobile){
+                        Notification.requestPermission().then((result) => {
+                            if (result === "granted") {
+                                navigator.serviceWorker.ready.then((registration) => {
+                                    registration.showNotification("Silver or Gold Alert", {
+                                        body: message,
+                                        icon: "",
+                                    });
+                                });
+                            }
+                        });
+                    }else{
+                        alert(message);
+                    }
+                }
+           </script>   
+        </div> 
+        </div>
+    </body>
+</html>

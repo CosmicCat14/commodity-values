@@ -1,9 +1,9 @@
 const CACHE_NAME = 'offline';
 const OFFLINE_PAGE = 'offline.html';
 const OFFLINE_LOGO = '/img/app_icon_192.png';
-const OFFLINE_FONT = 'https://swc.autodesk.com/pharmacopeia/fonts/ArtifaktElement/v1.0/WOFF2/Artifakt%20Element%20Regular.woff2';
+const OFFLINE_STYLE = 'https://cosmiccat14.github.io/commodity-values/style.css';
 const OFFLINE_FAVICON = '/favicon.ico';
-const FILES = [OFFLINE_PAGE,OFFLINE_LOGO, OFFLINE_FONT, OFFLINE_FAVICON];
+const FILES = [OFFLINE_PAGE,OFFLINE_LOGO, OFFLINE_STYLE, OFFLINE_FAVICON];
 
 self.addEventListener('install', function(event) {
     console.log('[Service Worker] Installed.');
