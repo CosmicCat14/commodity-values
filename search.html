@@ -103,7 +103,7 @@
                     let dblsfteddata = [];
                     let year = location.href.split('year=')[1];
                     siftedData.forEach(element => {
-                        if (year > element.yearStart && year < element.yearEnd){
+                        if (year >= element.yearStart && year <= element.yearEnd){
                             dblsfteddata.push(element);
                         }
                     });
@@ -112,7 +112,7 @@
             }else{//if year ONLY is supplied
                 let year = location.href.split('year=')[1];
                 data.forEach(element => {
-                    if (year > element.yearStart && year < element.yearEnd){
+                    if (year >= element.yearStart && year <= element.yearEnd){
                         siftedData.push(element);
                     }
                 });
