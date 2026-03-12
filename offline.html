@@ -4,14 +4,16 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Offline | Silver and gold coin values</title>
-        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="https://cosmiccat14.github.io/commodity-values/style.css">
     </head>
     <body>
         <div id="header">
-            <h1>Live Silver and Gold coin values</h1>
-             <search class="hidden toggle">
-            <h2>Search for a coin:</h2>
-            <form action="search.html" method="get">
+            <h1>Offline</h1>
+            <h2>Live Silver and Gold coin values</h2>
+            <search class="hidden toggle">
+            <!-- <h2>Search for a coin:</h2> -->
+             <h2>Search not available offline...</h2>
+            <!-- <form action="search.html" method="get">
                 <label for="denom">Denomination:</label>
                 <select name="denom" id="denom">
                     <option value="none">Do not filter by denomination.</option>
@@ -27,10 +29,10 @@
                     <option value="2000">20 Dollars</option>
                 </select><br>
                 <label for="year">Year:</label><input type="text" name="year" maxlength="4" id="year"><br>
-                <button>Search</button><br>
-            </form>
+                <button>Search</button><br> 
+            </form> -->
         </search>
-        <button onclick="let tgl = document.getElementsByClassName('toggle');tgl[0].classList.toggle('hidden');tgl[1].classList.toggle('hidden')" class="toggle">Show search...</button>
+        <button onclick="let tgl = document.getElementsByClassName('toggle');tgl[0].classList.toggle('hidden');tgl[1].classList.toggle('hidden')" class="hidden">Show search...</button>
         </div>
         <script>
             let update = true;
@@ -66,13 +68,13 @@
                 })
             .then(text => {
             if (!text) {
-            console.error('Empty response received');
+            console.warn('Empty response received');
             return;
             }
             data = JSON.parse(text); // Parse manually
             manage(data);
             })
-            .catch(error => console.error('Fetch error:', error));
+            .catch(error => console.warn('Fetch error:', error));
             function inform() {
                 document.getElementById('inform-04').open = true;
             }
@@ -114,15 +116,23 @@
             connect();
         </script>
         <div id="bodycontent">
-            Prices Last updated <span id="time"></span> seconds ago.
+            <!-- Prices Last updated <span id="time"></span> seconds ago.  -->
+            <!-- Offline, do not show when updated last -->
             <script>
             setInterval(() => {
-
-                    let sv_updated = timer;
-                    if (timer > 29 & update){
-                        connect();
+                    if (timer > 29){
+                        let connected = true;
+                        try {
+                            connect();
+                            //try to connect to API
+                        } catch (error) {
+                            //There is still no internet connection. 
+                            connected = false;
+                        }
+                        if (connected){
+                            location.href = "https://cosmiccat14.github.io/commodity-values/"
+                        }
                     }
-                    document.getElementById('time').innerText = sv_updated;
                 }, 1000);
             </script>
             <h2>Silver</h2>
