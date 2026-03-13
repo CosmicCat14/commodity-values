@@ -92,10 +92,16 @@
     },
     {
         "denom":10,
-        "name":"1946-1964 Silver Dime",
+        "name":"Silver Roosevelt Dime",
         "svcontent":0.0723,
         "yearStart":1946,
         "yearEnd":1964
+    },{
+        "denom":10,
+        "name":"Silver Proof Roosevelt Dime",
+        "svcontent":0.0723,
+        "yearStart":1992,
+        "yearEnd":2025
     },
     {
         "denom":20,
@@ -152,6 +158,34 @@
         "svcontent":0.1808,
         "yearStart":1932,
         "yearEnd":1964
+    },
+    {
+        "denom":25,
+        "name":"Silver Proof Washington Quarter",
+        "svcontent":0.1808,
+        "yearStart":1992,
+        "yearEnd":1998
+    },
+    {
+        "denom":25,
+        "name":"Statehood Quarter Silver Proof",
+        "svcontent":0.1808,
+        "yearStart":1999,
+        "yearEnd":2009
+    },
+    {
+        "denom":25,
+        "name":"National Parks Quarter Silver Proof",
+        "svcontent":0.1808,
+        "yearStart":2010,
+        "yearEnd":2021
+    },
+    {
+        "denom":25,
+        "name":"American Women Silver Proof Quarter",
+        "svcontent":0.1808,
+        "yearStart":2022,
+        "yearEnd":2025
     },
     {
         "denom":50,
