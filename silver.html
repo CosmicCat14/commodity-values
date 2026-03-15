@@ -198,6 +198,13 @@
             </script>
             </details>
             <details id="cad-sv"><summary>Canadian Silver</summary>
+                <p>A silver dime issued after 1920, which contains 0.06 oz of silver, is worth $<span id="cad-1/10"></span>.</p>
+                <script>
+                setInterval(() => {
+                    let sv_doll = Math.round(0.06 * data.price * 100) / 100;
+                    document.getElementById('cad-1/10').innerText = sv_doll;
+                }, 1000);
+            </script>
                 <p>A silver quarter issued after 1920, which contains 0.15 oz of silver, is worth $<span id="cad-1/4"></span>.</p>
                 <script>
                 setInterval(() => {
