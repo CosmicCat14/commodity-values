@@ -1,6 +1,6 @@
 const CACHE_NAME = 'offline';
 const OFFLINE_PAGE = 'https://cosmiccat14.github.io/commodity-values/offline.html';
-const OFFLINE_LOGO = '/img/app_icon_192.png';
+const OFFLINE_LOGO = "";
 const OFFLINE_STYLE = 'https://cosmiccat14.github.io/commodity-values/style.css';
 const OFFLINE_REDIRECT = 'https://cosmiccat14.github.io/commodity-values/silver.html';
 const FILES = [OFFLINE_PAGE,OFFLINE_LOGO, OFFLINE_STYLE, OFFLINE_REDIRECT];

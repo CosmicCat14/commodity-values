@@ -312,6 +312,34 @@
         "svcontent":0.77,
         "yearStart":1922,
         "yearEnd":1935
+    },
+    {
+        "denom": "cad10",
+        "name":"Canadian Silver Dime",
+        "yearStart":1920,
+        "yearEnd":1967,
+        "svcontent":0.06
+    },
+    {
+        "denom": "cad25",
+        "name":"Canadian Silver Quarter",
+        "yearStart":1920,
+        "yearEnd":1967,
+        "svcontent":0.15
+    },
+    {
+        "denom": "cad50",
+        "name":"Canadian Silver Half Dollar",
+        "yearStart":1920,
+        "yearEnd":1967,
+        "svcontent":0.3
+    },
+    {
+        "denom": "cad100",
+        "name":"Canadian Silver Dollar",
+        "yearStart":1920,
+        "yearEnd":1967,
+        "svcontent":0.6
     }
     
 ]
