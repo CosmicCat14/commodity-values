@@ -340,6 +340,34 @@
         "yearStart":1920,
         "yearEnd":1967,
         "svcontent":0.6
+    },
+    {
+        "denom":"brit",
+        "name":"Sixpence",
+        "svcontent":0.084,
+        "yearStart":1551,
+        "yearEnd":1919
+    },
+    {
+        "denom":"brit",
+        "name":"Sixpence",
+        "svcontent":0.045,
+        "yearStart":1920,
+        "yearEnd":1946
+    },
+    {
+        "denom":"brit",
+        "name":"Shilling",
+        "svcontent":0.1682,
+        "yearStart":1551,
+        "yearEnd":1920
+    },
+    {
+        "denom":"brit",
+        "name":"Shilling",
+        "svcontent":0.0909,
+        "yearStart":1920,
+        "yearEnd":1946
     }
     
 ]

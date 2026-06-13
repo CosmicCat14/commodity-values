@@ -38,6 +38,9 @@
                 <button>Search</button><br>
             </form>
         </search>
+        <a href="canada.html">
+            <button>Canadian Coins</button>
+        </a>
         <button onclick="let tgl = document.getElementsByClassName('toggle');tgl[0].classList.toggle('hidden');tgl[1].classList.toggle('hidden')" class="toggle">Show search...</button>
         </div>
         <script>
@@ -48,12 +51,14 @@
             let svAlertMax = localStorage.getItem('svAlertMax') != null? localStorage.getItem('svAlertMax'):NaN;
             let mobile = window.innerWidth > 425;
             let data = {
-                "name": "Silver",
-                "price": 93.914001,
-                "symbol": "XAG",
-                "updatedAt": "2026-02-28T23:01:37Z",
-                "updatedAtReadable": "a few seconds ago"
-            };
+                "currency":"USD",
+                "currencySymbol":"$",
+                "exchangeRate":1.0,
+                "name":"Silver",
+                "price":76.363998,
+                "symbol":"XAG",
+                "updatedAt":"2026-06-02T11:20:06Z",
+                "updatedAtReadable":"a few seconds ago"};
             let gold = {
                 "name": "Gold",
                 "price": 5280,

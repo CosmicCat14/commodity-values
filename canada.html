@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Canadian Silver coin values</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <img style="display: none;" src="https://hits.sh/cosmiccat14.github.io/commodity-values/canada.html.svg">
+         <div id="header">
+            <h1>Live Silver and Gold coin values</h1>
+             <search class="hidden toggle">
+            <h2>Search for a coin:</h2>
+            <form action="search.html" method="get">
+                <label for="denom">Denomination:</label>
+                <select name="denom" id="denom">
+                    <option value="none">Do not filter by denomination.</option>
+                    <!-- <option value="5">Nickel / Half Dime</option> -->
+                    <option value="cad10">Canadian Dime</option>
+                    <!-- <option value="cad20">Canadian 20 Cent Piece</option> -->
+                    <option value="cad25">Canadian Quarter</option>
+                    <option value="cad50">Canadian Half Dollar</option>
+                    <option value="cad100">Canadian Dollar</option>
+                    <!-- <option value="250">2 1/2 Dollars</option>
+                    <option value="500">5 Dollars</option>
+                    <option value="1000">10 Dollars</option>
+                    <option value="2000">20 Dollars</option> -->
+                </select><br>
+                <label for="year">Year:</label><input type="text" name="year" maxlength="4" id="year" placeholder="2026"><br>
+                <button>Search</button><br>
+            </form>
+            </search>
+            <button onclick="let tgl = document.getElementsByClassName('toggle');tgl[0].classList.toggle('hidden');tgl[2].classList.toggle('hidden');tgl[1].classList.toggle('hidden')" class="toggle">Show search...</button>
+        </div>
+        <script>
+            let update = true;
+            let timer = 0;
+            let timerInterval = 0;
+            let svAlertMin = localStorage.getItem('svAlertMin') != null? localStorage.getItem('svAlertMin'):-1;
+            let svAlertMax = localStorage.getItem('svAlertMax') != null? localStorage.getItem('svAlertMax'):NaN;
+            let mobile = window.innerWidth > 425;
+        let data = {
+                "currency":"USD",
+                "currencySymbol":"$",
+                "exchangeRate":1.0,
+                "name":"Silver",
+                "price":76.363998,
+                "symbol":"XAG",
+                "updatedAt":"2026-06-02T11:20:06Z",
+                "updatedAtReadable":"a few seconds ago"};
+            let gold = {
+                "name": "Gold",
+                "price": 5280,
+                "symbol": "XAU",
+                "updatedAt": "2026-02-28T23:01:37Z",
+                "updatedAtReadable": "a few seconds ago"
+            }
+            function connect() {
+                
+            //connect to API
+            fetch('https://api.gold-api.com/price/XAG')
+            .then(response => {
+                if (!response.ok) {
+                    console.log(`HTTP error! status: ${response.status}`);
+                }
+                // Check if response has content
+                return response.text(); // Get as text first
+                })
+            .then(text => {
+            if (!text) {
+            console.error('Empty response received');
+            return;
+            }
+            data = JSON.parse(text); // Parse manually
+            manage(data);
+            })
+            .catch(error => console.error('Fetch error:', error));
+            function inform() {
+                document.getElementById('inform-04').open = true;
+            }
+            function dismiss() {
+                document.getElementById('inform-04').open = false;
+            }
+            function manage(d) {
+                data = d;
+            }
+            fetch('https://api.gold-api.com/price/XAU')
+            .then(response => {
+                if (!response.ok) {
+                    console.log(`HTTP error! status: ${response.status}`);
+                }
+                // Check if response has content
+                return response.text(); // Get as text first
+                })
+            .then(text => {
+            if (!text) {
+            console.error('Empty response received');
+            return;
+            }
+            gold = JSON.parse(text); // Parse manually
+            manageGold(gold);
+            })
+            .catch(error => console.error('Fetch error:', error));
+        }
+            function manageGold(d) {
+                gold = d;
+                //stop timer if any
+                if (timerInterval != 0){
+                    clearInterval(timerInterval);
+                    timerInterval = 0;
+                }
+                //start timer
+                timer = 0;
+                timerInterval =  setInterval(()=>timer++, 1000)
+            }
+            connect();
+        </script>
+        <div id="bodycontent">
+            Prices Last updated <span id="time"></span> seconds ago.
+            <script>
+            setInterval(() => {
+
+                    let sv_updated = timer;
+                    if (timer > 29 & update){
+                        connect();
+                    }
+                    document.getElementById('time').innerText = sv_updated;
+                }, 1000);
+            </script>
+            <h2>Canadian Silver</h2>
+            <p>Current silver spot price: $<span id="svspot"></span>.</p>
+            <script>
+                let storedspot;
+            setInterval(() => {
+                    document.getElementById('svspot').classList.remove('highlight')
+                    let sv_spot = Math.floor(data.price * 100) /100;
+                    if (storedspot != sv_spot){
+                        document.getElementById('svspot').classList.add('highlight')
+                    }
+                    document.getElementById('svspot').innerText = sv_spot;
+                    storedspot = sv_spot;
+                }, 1000);
+            </script>
+            <details id="cad-sv"><summary>Canadian Silver</summary>
+                <p>A silver dime issued after 1920, which contains 0.06 oz of silver, is worth $<span id="cad-1/10"></span>.</p>
+                <script>
+                setInterval(() => {
+                    let sv_doll = Math.round(0.06 * data.price * 100) / 100;
+                    document.getElementById('cad-1/10').innerText = sv_doll;
+                }, 1000);
+            </script>
+                <p>A silver quarter issued after 1920, which contains 0.15 oz of silver, is worth $<span id="cad-1/4"></span>.</p>
+                <script>
+                setInterval(() => {
+                    let sv_doll = Math.round(0.15 * data.price * 100) / 100;
+                    document.getElementById('cad-1/4').innerText = sv_doll;
+                }, 1000);
+            </script>
+                <p>A silver Canadian half-dollar issued after 1920, which contains 0.3 oz of silver, is worth $<span id="cad-1÷2"></span>.</p>
+                <script>
+                setInterval(() => {
+                    let sv_doll = Math.round(0.3 * data.price * 100) / 100;
+                    document.getElementById('cad-1÷2').innerText = sv_doll;
+                }, 1000);
+            </script>
+                <p>A silver Canadian dollar issued after 1920, which contains 0.6 oz of silver, is worth $<span id="cad-1"></span>.</p>
+                <script>
+                setInterval(() => {
+                    let sv_doll = Math.round(0.6 * data.price * 100) / 100;
+                    document.getElementById('cad-1').innerText = sv_doll;
+                }, 1000);
+            </script>
+            </details>
+    </body>
+</html>
