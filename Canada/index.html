@@ -4,6 +4,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Canadian Silver coin values</title>
+        <base href="https://cosmiccat14.github.io/commodity-values/">
         <link rel="stylesheet" href="style.css">
     </head>
     <body>
@@ -29,7 +30,7 @@
                 </select><br>
                 <label for="year">Year:</label><input type="text" name="year" maxlength="4" id="year" placeholder="2026"><br>
                 <button>Search</button><br>
-                <a href="/a"><button>Back to American Silver</button></a>
+                <a href="/"><button>Back to American Silver</button></a>
             </form>
             </search>
             <button onclick="let tgl = document.getElementsByClassName('toggle');tgl[0].classList.toggle('hidden');tgl[2].classList.toggle('hidden');tgl[1].classList.toggle('hidden')" class="toggle">Show search...</button>
@@ -173,5 +174,107 @@
                 }, 1000);
             </script>
             </details>
+            <button onclick="document.getElementById('control').classList.toggle('hidden')">...</button>
+
+        <div class="hidden" id="control">
+            Dark mode:
+            <label class="toggle-switch" role="switch">
+                <input type="checkbox" id="darkmode">
+                <span class="slider"></span>
+            </label>
+            <br>
+            </div>
+            <h3>Alerts:</h3>
+            <h4>Silver:</h4>
+            <button onclick="setAlert(+5, 'silver');">+5%</button>
+            <button onclick="setAlert(-5, 'silver');">-5%</button><br>
+            Custom<input type="number" id="input">%
+            <button onclick="setAlert(document.getElementById('input').value, 'silver');">Set</button><br>
+            <h5>Existing:</h5>
+            <div class="alert-view">
+                <p>You will be notified when silver drops below $<span id="sv-min-alert"></span>/oz or exceeds $<span id="sv-max-alert"></span>/oz.</p>
+            </div>
+            <h4>Gold:</h4>
+            <button onclick="setAlert(+5, 'gold');">+5%</button>
+            <button onclick="setAlert(-5, 'gold');">-5%</button>
+           <script>
+            let openSection = "";
+            let startDark = 18;
+            let endDark = 7;
+            setTimeout(() => {
+                setInterval(() => {
+                    let currenttime = new Date();
+                    if (document.getElementById('darkmode').checked == true){
+                        document.body.classList.add('darkmode');
+                    }else{
+                        document.body.classList.remove('darkmode');
+                    }
+                    if (!document.getElementById('update').checked == true){
+                        let scripts = document.getElementsByTagName('script')
+                        for (let script in scripts){
+                            script.innerHTML = "";
+                        }
+                        update=false;
+                    }
+                    if (data.price >= svAlertMax){
+                        Triggeralert('Silver spot price exceeded $'+svAlertMax + "/oz!")
+                        svAlertMax = 1000000;
+                        localStorage.removeItem('svAlertMax');
+                    }
+                    if (data.price <= svAlertMin){
+                        Triggeralert('Silver spot price dropped below $'+svAlertMin + "/oz!")
+                        svAlertMin = -1;
+                        localStorage.setItem('svAlertMax', svAlertMax);
+                    }
+
+                    document.getElementById('sv-min-alert').innerHTML = svAlertMin;
+                    document.getElementById('sv-max-alert').innerHTML = svAlertMax;
+                    if (currenttime.getHours() ==  startDark && currenttime.getMinutes() == 0){
+                        document.getElementById('darkmode').checked = true;
+                    } else if (currenttime.getHours() == endDark && currenttime.getMinutes() == 0){
+                        document.getElementById('darkmode').checked = false;
+                    }
+                }, 100);
+                }, 1000);
+                function setAlert(percentabove=0, commodity="") {
+                    switch (commodity) {
+                        case "silver":
+                            console.log('setting alert for silver:')
+                            if (percentabove < 0){
+                                console.log('Triggered when silver drops below', data.price * (1 + 0.01*percentabove))
+                                svAlertMin = data.price * (1 + 0.01*percentabove);
+                                localStorage.setItem('svAlertMin', svAlertMin)
+                            }else{
+                                console.log('Triggered when silver rises above', data.price * (1 + 0.01*percentabove))
+                                svAlertMax = data.price * (1 + 0.01*percentabove);
+                                localStorage.setItem('svAlertMax', svAlertMax);
+                            }
+                            break;
+                    
+                        case "gold":
+                            //pass
+                            break;
+                        default:
+                            console.warn('Invalid parameter entered in `setAlert`: commodity');
+                            break;
+                    }
+                }
+                function Triggeralert(message) {
+                        Notification.requestPermission().then((result) => {
+                            if (result === "granted") {
+                                navigator.serviceWorker.ready.then((registration) => {
+                                    registration.showNotification("Silver or Gold Alert", {
+                                        body: message,
+                                        icon: "",
+                                    });
+                                });
+                            }else{
+                                //permission not granted
+                                alert(message);
+                            }
+                        });
+                }
+           </script> 
+        </div></div>  
     </body>
 </html>
